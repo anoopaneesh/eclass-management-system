@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var db = require('./config/config')
+var mailer = require('./config/mail-config')
 var hbs = require('express-handlebars')
 var adminRouter = require('./routes/admin');
 var userRouter = require('./routes/users');
@@ -29,6 +30,7 @@ db.connection((err)=>{
     console.log('Database connected to port 27017')
   }
 })
+mailer.config()
 
 app.use('/', userRouter);
 app.use('/admin', adminRouter);
