@@ -1,6 +1,6 @@
 <div class="container mt-5 mb-5">
     <h1 class="text-center mb-5">Edit Teacher</h1>
-    <form method="post" action="/admin/edit-teacher" enctype="multipart/form-data">
+    <form method="post" action="/admin/edit-teacher/{{teacher._id}}" enctype="multipart/form-data">
     <div class="form-group">
     <input type="text" class="form-control" name="name" aria-describedby="name" placeholder="Enter name" value={{teacher.name}}>
   </div>
@@ -39,7 +39,8 @@
     <img id="profile-img" src="/teacher-img/{{teacher._id}}.jpg" alt="" style="width:100px;height:auto;">
     <input type="file" name="image" class="form-control-file" id="exampleFormControlFile1" onchange="changePhoto(event)">
   </div>
-  <button type="submit" class="btn btn-success">Add Teacher</button>
+  <button type="submit" class="btn btn-success">Edit Teacher</button>
+  <a class="btn btn-danger text-white" href="/admin/view-teachers">Cancel</a>
 </form>
 </div>
 <script>

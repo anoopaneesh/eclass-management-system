@@ -43,8 +43,19 @@ router.get('/view-teachers',(req,res)=>{
 })
 router.get('/edit-teacher/:id',(req,res)=>{
   adminHelper.getTeacher(req.params.id).then((teacher)=>{
-    console.log(teacher)
     res.render('admin/edit-teacher',{admin:true,teacher})
+  })
+})
+router.post('/edit-teacher/:id',(req,res)=>{
+
+  adminHelper.updateTeacher(req.params.id,req.body).then((response)=>{
+    if(response.status){
+      if(req.files){
+        let image = req.files.image
+        image.mv('./public/teacher-img/'+req.params.id+'.jpg')
+      }
+      res.redirect('/admin/view-teachers')
+    } 
   })
 })
 
