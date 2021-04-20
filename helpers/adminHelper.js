@@ -2,6 +2,7 @@ var db = require('../config/config')
 var collection = require('../config/collections')
 var bcrypt = require('bcrypt')
 var objectId = require('mongodb').ObjectID
+const { response } = require('express')
 
 module.exports = {
     doLogin:(userData)=>{
@@ -52,6 +53,38 @@ module.exports = {
                 })
             }
         })
-    }
+    },
+    addStudent:(data)=>{
+        return new Promise(async(resolve,reject)=>{
+            data.password = await bcrypt.hash(data.dob, 10)
+            db.get().collection(collection.STUDENT_COLLECTION).insertOne(data).then((response)=>{
+                resolve(response.ops[0])
+            }).catch(err=>{
+                reject()
+            })
+        })
+    },
+    removeTeacher:(teacherId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.TEACHER_COLLECTION).remove({_id:objectId(teacherId)}).then((response)=>{
+                if(response.writeError){
+                    resolve({status:false})
+                }else{
+                    resolve({status:true})
+                }
+            })
+        })
+    },
+    removeStudent:(studentId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.STUDENT_COLLECTION).remove({_id:objectId(studentId)}).then((response)=>{
+                if(response.writeError){
+                    resolve({status:false})
+                }else{
+                    resolve({status:true})
+                }
+            })
+        })
+    },
     
 }

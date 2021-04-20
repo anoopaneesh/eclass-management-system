@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var session = require('express-session')
 var db = require('./config/config')
 var mailer = require('./config/mail-config')
 var hbs = require('express-handlebars')
@@ -12,10 +13,11 @@ var fileUpload = require('express-fileupload')
 var app = express();
 
 // view engine setup
+app.use(session({secret:"Key",cookie:{maxAge:600000}}))
 app.use(fileUpload())
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-app.engine('hbs',hbs({extname:'hbs',defaultLayout:'layout',layoutsDir:__dirname+'/views/layout/',partialsDir:__dirname+'/views/partials/'}))
+app.engine('hbs',hbs({extname:'hbs',defaultLayout:'layout',layoutsDir:__dirname+'/views/layout/',partialsDir:__dirname+'/views/partials/',helpers:require('./helpers/hbsHelpers')}))
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

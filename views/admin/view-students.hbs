@@ -5,24 +5,26 @@
       <th scope="col">#</th>
       <th scope="col">Name</th>
       <th scope="col">Email</th>
-      <th scope="col">Subject</th>
-      <th scope="col">Salary</th>
+      <th scope="col">Gaurdian Email</th>
+      <th scope="col">Gaurdian name</th>
       <th scope="col">Mobile</th>
+      <th scope="col">Gender</th>
       <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody>
-      {{#each teachers}}
+      {{#each students}}
     <tr>
       <th scope="row">{{@index}}</th>
       <td>{{this.name}}</td>
       <td>{{this.email}}</td>
-      <td>{{this.subject}}</td>
-      <td>{{this.salary}}</td>
+      <td>{{this.gemail}}</td>
+      <td>{{this.gname}}</td>
       <td>{{this.mobile}}</td>
+      <td>{{this.gender}}</td>
       <td>
-          <a class="btn btn-primary text-white" href="/admin/edit-teacher/{{this._id}}">View Details</a>
-          <a class="btn btn-danger text-white" href="/admin/delete-teacher/{{this._id}}">Delete</a>
+          <a class="btn btn-primary text-white" href="/admin/edit-student/{{this._id}}">Edit Details</a>
+          <a class="btn btn-danger text-white" href="/admin/delete-student/{{this._id}}">Delete</a>
       </td>
     </tr>
     {{/each}}
