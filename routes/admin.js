@@ -1,11 +1,19 @@
 var express = require('express');
 var router = express.Router();
 var adminHelper = require('../helpers/adminHelper')
+var teacherHelper = require('../helpers/teacherHelper')
+var timetableHelper = require('../helpers/timetableHelper')
 var mailer = require('../config/mail-config')
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('admin/dashboard', { admin: true });
 });
+
+router.post('/login',(req,res)=>{
+  adminHelper.doLogin(req.body).then((response)=>{
+    res.json(response)
+  })
+})
 
 router.get('/add-teacher',(req,res)=>{
   res.render('admin/add-teacher',{admin:true})
@@ -37,18 +45,18 @@ router.post('/add-teacher',(req,res)=>{
   })
 })
 router.get('/view-teachers',(req,res)=>{
-  adminHelper.getTeachers().then((teachers)=>{
+  teacherHelper.getTeachers().then((teachers)=>{
     res.render('admin/view-teachers',{admin:true,teachers})
   })
 })
 router.get('/edit-teacher/:id',(req,res)=>{
-  adminHelper.getTeacher(req.params.id).then((teacher)=>{
+  teacherHelper.getTeacher(req.params.id).then((teacher)=>{
     res.render('admin/edit-teacher',{admin:true,teacher})
   })
 })
 router.post('/edit-teacher/:id',(req,res)=>{
 
-  adminHelper.updateTeacher(req.params.id,req.body).then((response)=>{
+  teacherHelper.updateTeacher(req.params.id,req.body).then((response)=>{
     if(response.status){
       if(req.files){
         let image = req.files.image
@@ -58,5 +66,21 @@ router.post('/edit-teacher/:id',(req,res)=>{
     } 
   })
 })
+router.get('/add-timetable',(req,res)=>{
+  res.render('admin/add-timetable',{admin:true})
+})
+router.post('/add-timetable',(req,res)=>{
+  console.log(req.body)
+  adminHelper.addTimetable(req.body).then((timetable)=>{
+    res.redirect('/admin')
+  })
+})
+router.get('/view-timetable',(req,res)=>{
+  timetableHelper.getTimetable().then((timetable)=>{
+    res.render('admin/view-timetable',{admin:true,timetable})
+  })
+})
+
+
 
 module.exports = router;

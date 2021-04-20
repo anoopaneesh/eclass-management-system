@@ -1,0 +1,47 @@
+<div class="container mt-5">
+    <div  id="timetable">
+    <h1 class="mb-5 text-center">Time table 2021-2022</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Day</th>
+                <th scope="col">Period 1 </th>
+                <th scope="col">Period 2</th>
+                <th scope="col">Period 3</th>
+                <th scope="col">Period 4</th>
+                <th scope="col">Period 5</th>
+                <th scope="col">Period 6</th>
+                <th scope="col">Period 7</th>
+                <th scope="col">Period 8</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each timetable}}
+            <tr>
+                <th scope="row">{{this.day}}</th>
+                <td>{{this.period1}}</td>
+                <td>{{this.period2}}</td>
+                <td>{{this.period3}}</td>
+                <td>{{this.period4}}</td>
+                <td>{{this.period5}}</td>
+                <td>{{this.period6}}</td>
+                <td>{{this.period7}}</td>
+                <td>{{this.period8}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    </div>
+    <button class="btn btn-primary" onclick="printTimetable()">Print</button>
+</div>
+<script>
+    function printTimetable(){
+        let timetable = document.getElementById("timetable").innerHTML
+        let oldPage = document.body.innerHTML
+        document.body.innerHTML = timetable
+        document.body.style.cssText = "margin-top:100px;"
+        window.print()
+        document.body.innerHTML = oldPage
+        document.body.style.cssText = "margin-top:0px;"
+    }
+</script>
