@@ -1,9 +1,11 @@
 var express = require('express');
+const fs = require('fs')
 var router = express.Router();
 var adminHelper = require('../helpers/adminHelper')
 var teacherHelper = require('../helpers/teacherHelper')
 var timetableHelper = require('../helpers/timetableHelper')
 var studentHelper = require('../helpers/studentHelper')
+var announcementHelper = require('../helpers/announcementHelpers')
 var mailer = require('../config/mail-config')
 /* GET home page. */
 var verifyLogin = (req,res,next) =>{
@@ -170,7 +172,61 @@ router.get('/delete-student/:id',verifyLogin,(req,res)=>{
     }
   })
 })
-
-
+router.get('/add-announcement',verifyLogin,(req,res)=>{
+  res.render('admin/announcement',{admin:req.session.admin})
+})
+router.post('/add-announcement',verifyLogin,(req,res)=>{
+  let announcement = req.body
+  let files = []
+  if(Array.isArray(req.files.files)){
+    files = [...req.files.files]
+  }else{
+    files = [req.files.files]
+  }
+  announcement.attachments = []
+  if(files){ 
+   files.map((file)=>{
+    announcement.attachments.push({
+      name:file.name,
+      type:file.mimetype.split('/')[0],
+      extname:file.mimetype.split('/')[1],
+    })
+   })
+   console.log(announcement)
+  }
+  adminHelper.addAnnouncement(announcement).then((response)=>{
+    if(files){
+      files.map((file)=>{
+        file.mv(`./public/attachments/${response._id}${file.name}`)
+      })
+    }
+    res.redirect('/admin')
+  })
+})
+router.get('/view-announcements',verifyLogin,(req,res)=>{
+  announcementHelper.getAllAnnouncements().then((announcements)=>{
+    res.render('admin/view-announcements',{admin:req.session.admin,announcements})
+  })
+})
+router.get('/delete-announcement/:id',(req,res)=>{
+  adminHelper.removeAnnouncement(req.params.id).then((response)=>{
+    if(response.status){
+      response.attachments.map((e)=>{
+        let filename = ""+req.params.id+e.name
+        let path = './public/attachments/'+filename
+        fs.unlink(path, (err) => {
+          if (err) {
+            console.error(err)
+            return
+          }
+          console.log(filename+' file removed')
+        })
+      })
+      res.redirect('/admin/view-announcements')
+    }else{
+      res.status(404).send("Error occured")
+    }
+  })
+})
 
 module.exports = router;

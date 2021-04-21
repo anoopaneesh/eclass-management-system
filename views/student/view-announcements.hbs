@@ -1,0 +1,16 @@
+<div class="container mt-5">
+  {{#each announcements}}
+  <div class="card">
+  <div class="card-body">
+    <p class="card-text">{{this.date}}</p>
+    <h5 class="card-title">{{this.title}}</h5>
+    <p class="card-text">{{this.message}}</p>
+    <code>Attachments</code><br>
+    {{#each this.attachments}}
+            <a href="/attachments/{{../_id}}{{this.name}}" download="{{this.name}}">{{this.name}}</a><br>
+    {{/each}}
+  </div>
+</div>
+{{/each}}
+    
+</div>

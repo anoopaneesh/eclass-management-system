@@ -7,7 +7,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/admin">Home <span class="sr-only">(current)</span></a>
       </li>
       {{#if admin}}
       <li class="nav-item dropdown active">
@@ -48,6 +48,15 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/admin/add-timetable">Add Timetable</a>
           <a class="dropdown-item" href="/admin/view-timetable">View Timetable</a>
+        </div>
+      </li>
+       <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Announcements
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/admin/add-announcement">Add Announcement</a>
+          <a class="dropdown-item" href="/admin/view-announcements">View Announcements</a>
         </div>
       </li>
     </ul>

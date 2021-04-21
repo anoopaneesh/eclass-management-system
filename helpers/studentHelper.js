@@ -1,6 +1,7 @@
 var db = require('../config/config')
 var collection = require('../config/collections')
 var objectId = require('mongodb').ObjectID
+var bcrypt = require('bcrypt')
 module.exports={
     getStudents: () => {
         return new Promise((resolve, reject) => {
@@ -10,6 +11,25 @@ module.exports={
                 reject(err)
             })
 
+        })
+    },
+    doLogin:(data)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.STUDENT_COLLECTION).findOne({email:data.email}).then((student)=>{
+                if(student){
+                    bcrypt.compare(data.password,student.password).then((status)=>{
+                        if(status){
+                            resolve({student,status:true})
+                        }else{
+                            resolve({student:null,status:false})
+                        }
+                    })
+                }else{
+                    resolve({student:null,status:false})
+                }
+            }).catch(err=>{
+                reject(err)
+            })
         })
     },
     getStudent: (studentId) => {
@@ -41,6 +61,29 @@ module.exports={
             }).catch(err => {
                 reject()
             })
+        })
+    },
+    changePassword:(studentId,data)=>{
+        return new Promise(async(resolve,reject)=>{
+            let student = await db.get().collection(collection.STUDENT_COLLECTION).findOne({_id:objectId(studentId)})
+            if(student){
+               let result = await bcrypt.compare(data.currpassword,student.password)
+               if(result){
+                    let newpass = await bcrypt.hash(data.newpassword,10)
+                    db.get().collection(collection.STUDENT_COLLECTION).updateOne({_id:objectId(studentId)},{
+                        $set:{
+                            password:newpass
+                        }
+                    }).then((response)=>{
+                        resolve({status:true})
+                    }).catch(err=>{
+                        reject(err)
+                    })
+
+               }else{
+                   resolve({status:false})
+               }
+            }
         })
     }
 }

@@ -2,7 +2,6 @@ var db = require('../config/config')
 var collection = require('../config/collections')
 var bcrypt = require('bcrypt')
 var objectId = require('mongodb').ObjectID
-const { response } = require('express')
 
 module.exports = {
     doLogin:(userData)=>{
@@ -86,5 +85,28 @@ module.exports = {
             })
         })
     },
+    addAnnouncement:(data)=>{
+        return new Promise((resolve,reject)=>{
+            data.date = new Date().toISOString().split('T')[0]
+            db.get().collection(collection.ANNOUNCEMENT_COLLECTION).insertOne(data).then((response)=>{
+                resolve(response.ops[0])
+            }).catch(err=>{
+                reject(err)
+            })
+        })
+    },
+    removeAnnouncement:(announcementId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let announcement = await db.get().collection(collection.ANNOUNCEMENT_COLLECTION).findOne({_id:objectId(announcementId)})
+            attachments = announcement.attachments
+            db.get().collection(collection.ANNOUNCEMENT_COLLECTION).remove({_id:objectId(announcementId)}).then((response)=>{
+                if(response.writeError){
+                    resolve({status:false})
+                }else{
+                    resolve({status:true,attachments})
+                }
+            })
+        })
+    }
     
 }

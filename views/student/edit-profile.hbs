@@ -1,0 +1,58 @@
+<div class="container mt-5 mb-5">
+    <h1 class="text-center mb-5">Edit Profile</h1>
+    <form method="post" action="/student/edit-profile/{{student._id}}" enctype="multipart/form-data">
+    <div class="form-group">
+    <input type="text" class="form-control" name="name" aria-describedby="name" placeholder="Enter name" value={{student.name}}>
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" name="gname" aria-describedby="name" placeholder="Enter gaurdian name" value={{student.gname}}>
+  </div>
+  <div class="form-group">
+    <input type="email" class="form-control" name="email" aria-describedby="email" placeholder="Enter email" value={{student.email}}>
+  </div>
+  <div class="form-group">
+    <input type="email" class="form-control" name="gemail" aria-describedby="email" placeholder="Enter gaurdian email" value={{student.gemail}}>
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" name="mobile" aria-describedby="mobile" placeholder="Enter mobile no" value={{student.mobile}}>
+  </div>
+  <div class="form-group">
+      <label for="dob">Date of birth</label>
+    <input type="date" id="dob" class="form-control" name="dob" aria-describedby="date-of-birth" placeholder="Enter DOB" value={{student.dob}}>
+  </div>
+  <div class="form-group">
+      <label class="mr-sm-2" for="inlineFormCustomSelect">Gender</label>
+      <select class="custom-select mr-sm-2" name="gender">
+        {{#ifEquals student.gender 'male'}}
+        <option value="male" selected>Male</option>
+        <option value="female">Female</option>
+        {{/ifEquals}}
+        {{#ifEquals student.gender 'female'}}
+        <option value="male">Male</option>
+        <option value="female" selected>Female</option>
+        {{/ifEquals}}
+      </select>
+  </div>
+   <div class="form-group">
+    <label for="exampleFormControlTextarea1">Address</label>
+    <textarea class="form-control" name="address" rows="3">{{student.address}}</textarea>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlTextarea1">Identification</label>
+    <textarea class="form-control" name="identify" rows="3">{{student.identify}}</textarea>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlFile1">Profile photo</label>
+    <img id="student-profile-img" src="/student-img/{{student._id}}.jpg" alt="" style="width:100px;height:auto;">
+    <input type="file" name="image" class="form-control-file" id="exampleFormControlFile1"  onchange="changePhoto(event)">
+  </div>
+  <button type="submit" class="btn btn-success">Edit Student</button>
+   <a class="btn btn-danger text-white" href="/student">Cancel</a>
+</form>
+</div>
+<script>
+    let img = document.getElementById("student-profile-img")
+    function changePhoto(e){
+        img.src =URL.createObjectURL(e.target.files[0])
+    }
+</script>
