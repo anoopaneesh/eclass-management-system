@@ -74,4 +74,36 @@ router.get('/view-announcements',verifyLogin,(req,res)=>{
     res.render('teacher/view-announcements',{teacher:req.session.teacher,announcements})
   })
 })
+router.get('/add-assignment',verifyLogin,(req,res)=>{
+  res.render('teacher/add-assignment',{teacher:req.session.teacher})
+})
+router.post('/add-assignment',verifyLogin,(req,res)=>{
+  let assignment = req.body
+  let files = []
+  if(Array.isArray(req.files.files)){
+    files = [...req.files.files]
+  }else{
+    files = [req.files.files]
+  }
+  assignment.attachments = []
+  assignment.subject = req.session.teacher.subject
+  if(files){ 
+   files.map((file)=>{
+    assignment.attachments.push({
+      name:file.name,
+      type:file.mimetype.split('/')[0],
+      extname:file.mimetype.split('/')[1],
+    })
+   })
+   console.log(assignment)
+  }
+  teacherHelper.addAssignment(assignment).then((response)=>{
+    if(files){
+      files.map((file)=>{
+        file.mv(`./public/assignments/${response._id}${file.name}`)
+      })
+    }
+    res.redirect('/teacher')
+  })
+})
 module.exports = router;

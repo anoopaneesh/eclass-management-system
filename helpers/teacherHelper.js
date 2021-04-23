@@ -83,5 +83,15 @@ module.exports={
                }
             }
         })
+    },
+    addAssignment:(assignment)=>{
+        return new Promise((resolve,reject)=>{
+            assignment.issueDate = new Date().toISOString().split('T')[0]
+            db.get().collection(collection.ASSIGNMENT_COLLECTION).insertOne(assignment).then((response)=>{
+                resolve(response.ops[0])
+            }).catch(err=>{
+                reject(err)
+            })
+        })
     }
 }

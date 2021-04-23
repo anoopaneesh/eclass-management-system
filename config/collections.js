@@ -3,5 +3,6 @@ module.exports={
     TIMETABLE_COLLECTION : 'timetable',
     ADMIN_COLLECTION    : 'admin',
     STUDENT_COLLECTION : 'student',
-    ANNOUNCEMENT_COLLECTION : 'announcement'
+    ANNOUNCEMENT_COLLECTION : 'announcement',
+    ASSIGNMENT_COLLECTION : 'assignment'
 }

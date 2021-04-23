@@ -1,0 +1,22 @@
+<div class="container">
+    <form method="post" action="/teacher/add-assignment" enctype="multipart/form-data">
+        <h1 class="mt-5 mb-5 text-center">Add Assignment</h1>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Title</label>
+    <input type="text" name="title" class="form-control" placeholder="Enter a title">
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlTextarea1">Message</label>
+    <textarea name="message" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+  </div>
+  <div class="form-group">
+      <label for="dob">Due date</label>
+    <input type="date" id="dueDate" class="form-control" name="dueDate" aria-describedby="date-of-birth" placeholder="Enter due date">
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlFile1">Attachments</label>
+    <input type="file" name="files" class="form-control-file" id="exampleFormControlFile1" multiple>
+  </div>
+  <button type="submit" class="btn btn-success">Add Assignment</button>
+</form>
+</div>
