@@ -78,8 +78,8 @@ router.get('/view-teachers',verifyLogin,(req,res)=>{
   })
 })
 router.get('/edit-teacher/:id',verifyLogin,(req,res)=>{
-  teacherHelper.getTeacher(req.params.id).then((teacher)=>{
-    res.render('admin/edit-teacher',{admin:req.session.admin,teacher})
+  teacherHelper.getTeacher(req.params.id).then((tchr)=>{
+    res.render('admin/edit-teacher',{admin:req.session.admin,tchr})
   })
 })
 router.post('/edit-teacher/:id',verifyLogin,(req,res)=>{
@@ -149,8 +149,8 @@ router.get('/view-students',verifyLogin,(req,res)=>{
   })
 })
 router.get('/edit-student/:id',verifyLogin,(req,res)=>{
-  studentHelper.getStudent(req.params.id).then((student)=>{
-    res.render('admin/edit-student',{admin:req.session.admin,student})
+  studentHelper.getStudent(req.params.id).then((std)=>{
+    res.render('admin/edit-student',{admin:req.session.admin,std})
   })
 })
 router.post('/edit-student/:id',verifyLogin,(req,res)=>{

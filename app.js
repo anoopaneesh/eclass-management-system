@@ -10,6 +10,7 @@ var hbs = require('express-handlebars')
 var adminRouter = require('./routes/admin');
 var userRouter = require('./routes/users');
 var studentRouter = require('./routes/student');
+var teacherRouter = require('./routes/teacher')
 var fileUpload = require('express-fileupload')
 var app = express();
 
@@ -37,6 +38,7 @@ mailer.config()
 
 app.use('/', userRouter);
 app.use('/student',studentRouter)
+app.use('/teacher',teacherRouter)
 app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler

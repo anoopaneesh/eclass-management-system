@@ -1,0 +1,51 @@
+<div class="container mt-5 mb-5">
+    <h1 class="text-center mb-5">Edit Profile</h1>
+    <form method="post" action="/teacher/edit-profile/{{teacher._id}}" enctype="multipart/form-data">
+    <div class="form-group">
+    <input type="text" class="form-control" name="name" aria-describedby="name" placeholder="Enter name" value={{teacher.name}}>
+  </div>
+  <div class="form-group">
+    <input type="email" class="form-control" name="email" aria-describedby="email" placeholder="Enter email" value={{teacher.email}}>
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" name="mobile" aria-describedby="mobile" placeholder="Enter mobile no" value={{teacher.mobile}}>
+  </div>
+  <div class="form-group">
+      <label for="dob">Date of birth</label>
+    <input type="date" id="dob" class="form-control" name="dob" aria-describedby="date-of-birth" placeholder="Enter DOB" value={{teacher.dob}}>
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" name="salary" aria-describedby="salary" placeholder="Enter Salary" value={{teacher.salary}}>
+  </div>
+  <div class="form-group">
+      <label class="mr-sm-2" for="inlineFormCustomSelect">Subject</label>
+      <select class="custom-select mr-sm-2" name="subject" required>
+        <option selected hidden disabled>Choose...</option>
+        <option value="Science">Science</option>
+        <option value="Maths">Maths</option>
+        <option value="English">English</option>
+        <option value="Biology">Biology</option>
+        <option value="Social">Social</option>
+        <option value="Malayalam">Malayalam</option>
+        <option value="IT">IT</option>
+      </select>
+  </div>
+   <div class="form-group">
+    <label for="exampleFormControlTextarea1">Address</label>
+    <textarea class="form-control" name="address" rows="3" >{{teacher.address}}</textarea>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlFile1">Profile photo</label>
+    <img id="profile-img" src="/teacher-img/{{teacher._id}}.jpg" alt="" style="width:100px;height:auto;">
+    <input type="file" name="image" class="form-control-file" id="exampleFormControlFile1" onchange="changePhoto(event)">
+  </div>
+  <button type="submit" class="btn btn-success">Edit Profile</button>
+  <a class="btn btn-danger text-white" href="/teacher">Cancel</a>
+</form>
+</div>
+<script>
+    let img = document.getElementById("profile-img")
+    function changePhoto(e){
+        img.src =URL.createObjectURL(e.target.files[0])
+    }
+</script>

@@ -15,8 +15,12 @@
 <body>
   {{#if admin}}
   {{> admin-nav}}
-  {{else}}
+  {{/if}}
+  {{#if student}}
   {{> student-nav}}
+  {{/if}}
+  {{#if teacher}}
+  {{> teacher-nav}}
   {{/if}}
     {{{body}}}
 

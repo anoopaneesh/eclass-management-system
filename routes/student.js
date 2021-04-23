@@ -10,7 +10,7 @@ var verifyLogin = (req,res,next) =>{
       res.redirect('/student/login')
     }
   }
-router.get('/', function(req, res, next) {
+router.get('/',verifyLogin, function(req, res, next) {
   res.render('student/dashboard',{student:req.session.student,admin:null});
 });
 router.get('/login',(req,res)=>{
