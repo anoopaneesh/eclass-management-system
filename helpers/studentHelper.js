@@ -98,5 +98,21 @@ module.exports={
                 reject(err)
             })
         })
+    },
+    deleteSubmission:(assignmentId,studentId)=>{
+      
+        return new Promise(async(resolve,reject)=>{
+            console.log(assignmentId,studentId)
+            db.get().collection(collection.ASSIGNMENT_COLLECTION).update({_id:objectId(assignmentId)},{
+                $pull:{
+                    'submission':{'student':studentId}
+                }
+            }).then((response)=>{
+                console.log(response)
+                resolve({status:true})
+            }).catch(err=>{
+                reject(err)
+            })
+        })
     }
 }
