@@ -3,6 +3,7 @@ var router = express.Router();
 var teacherHelper = require('../helpers/teacherHelper')
 var announcementHelper = require('../helpers/announcementHelpers')
 var timetableHelper = require('../helpers/timetableHelper')
+const fs = require('fs')
 var studentHelper = require('../helpers/studentHelper')
 var verifyLogin=(req,res,next)=>{
   if(req.session.teacher){
@@ -104,6 +105,36 @@ router.post('/add-assignment',verifyLogin,(req,res)=>{
       })
     }
     res.redirect('/teacher')
+  })
+})
+router.get('/view-assignments',verifyLogin,(req,res)=>{
+  teacherHelper.viewAssignments().then((assignments)=>{
+    res.render('teacher/view-assignments',{teacher:req.session.teacher,assignments})
+  })
+})
+router.get('/delete-assignment/:id',verifyLogin,(req,res)=>{
+  teacherHelper.deleteAssignment(req.params.id).then((response)=>{
+    if(response.status){
+      response.attachments.map((e)=>{
+        let filename = ""+req.params.id+e.name
+        let path = './public/assignments/'+filename
+        fs.unlink(path, (err) => {
+          if (err) {
+            console.error(err)
+            return
+          }
+          console.log(filename+' file removed')
+        })
+      })
+      res.redirect('/teacher/view-assignments')
+    }else{
+      res.status(404).send("Error occured")
+    }
+  })
+})
+router.get('/view-submissions/:id',(req,res)=>{
+  teacherHelper.getAssignment(req.params.id).then((assignment)=>{
+    res.render('teacher/view-submissions',{teacher:req.session.teacher,assignment})
   })
 })
 module.exports = router;

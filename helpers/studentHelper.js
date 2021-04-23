@@ -85,5 +85,18 @@ module.exports={
                }
             }
         })
+    },
+    submitAssignment:(assignmentId,data)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.ASSIGNMENT_COLLECTION).updateOne({_id:objectId(assignmentId)},{
+                $push:{
+                    'submission':data
+                }
+            }).then((response)=>{
+                resolve({status:true})
+            }).catch(err=>{
+                reject(err)
+            })
+        })
     }
 }

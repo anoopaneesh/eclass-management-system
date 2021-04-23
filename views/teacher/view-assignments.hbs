@@ -1,0 +1,39 @@
+<div class="container mt-5">
+    <table class="table display" id="table_id">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Message</th>
+      <th scope="col">Due Date</th>
+      <th scope="col">Attachments</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#each assignments}}
+    <tr>
+      <th scope="row">{{@index}}</th>
+      <td>{{this.title}}</td>
+      <td>{{this.message}}</td>
+      <td>{{this.dueDate}}</td>
+      <td>
+          {{#each this.attachments}}
+            <a href="/assignments/{{../_id}}{{this.name}}" download="{{this.name}}">{{this.name}}</a><br>
+          {{/each}}
+      </td>
+      <td>
+        <a class="btn btn-success text-white" href="/teacher/view-submissions/{{this._id}}">Submissions</a>
+          <a class="btn btn-danger text-white" href="/teacher/delete-assignment/{{this._id}}">Delete</a>
+          
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+</div>
+<script>
+    $(document).ready( function () {
+    $('#table_id').DataTable();
+} );
+</script>

@@ -1,8 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var studentHelper = require('../helpers/studentHelper')
+var teacherHelper = require('../helpers/teacherHelper')
 var timetableHelper = require('../helpers/timetableHelper')
-var announcementHelper = require('../helpers/announcementHelpers')
+var announcementHelper = require('../helpers/announcementHelpers');
+const { Db } = require('mongodb');
 var verifyLogin = (req,res,next) =>{
     if(req.session.student){
       next()
@@ -70,5 +72,27 @@ router.get('/view-announcements',verifyLogin,(req,res)=>{
   announcementHelper.getAllAnnouncements().then((announcements)=>{
     res.render('student/view-announcements',{student:req.session.student,announcements})
   })
+})
+router.get('/view-assignments',verifyLogin,(req,res)=>{
+  teacherHelper.viewAssignments().then((assignments)=>{
+    res.render('student/view-assignments',{student:req.session.student,assignments})
+  })
+})
+router.post('/submit-assignment/:id',verifyLogin,(req,res)=>{
+  let file = req.files.file
+  if(!file){
+    res.status(404).send("Error .. please select a file")
+  }else{
+  data = {
+    student:req.session.student._id,
+    extname:file.mimetype.split('/')[1],
+  }
+  studentHelper.submitAssignment(req.params.id,data).then((response)=>{
+    if(response.status){
+      file.mv('./public/submissions/'+req.params.id+req.session.student._id+'.'+data.extname)
+      res.redirect('/student')
+    }
+  })
+  }
 })
 module.exports = router;
