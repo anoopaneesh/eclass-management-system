@@ -103,10 +103,9 @@ router.post('/submit-assignment/:id', verifyLogin, (req, res) => {
     res.status(404).send("Error .. please select a file")
   } else {
     data = {
-      student: req.session.student._id,
       extname: file.mimetype.split('/')[1],
     }
-    studentHelper.submitAssignment(req.params.id, data).then((response) => {
+    studentHelper.submitAssignment(req.params.id,data,req.session.student._id).then((response) => {
       if (response.status) {
         file.mv('./public/submissions/' + req.params.id + req.session.student._id + '.' + data.extname)
         res.redirect('/student')

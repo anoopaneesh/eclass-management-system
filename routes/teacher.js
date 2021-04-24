@@ -36,7 +36,6 @@ router.get('/edit-profile',verifyLogin,(req,res)=>{
   })
 })
 router.post('/edit-profile/:id',verifyLogin,(req,res)=>{
-
   teacherHelper.updateTeacher(req.params.id,req.body).then((response)=>{
     if(response.status){
       if(req.files){
@@ -133,7 +132,7 @@ router.get('/delete-assignment/:id',verifyLogin,(req,res)=>{
   })
 })
 router.get('/view-submissions/:id',(req,res)=>{
-  teacherHelper.getAssignment(req.params.id).then((assignment)=>{
+  teacherHelper.viewSubmissions(req.params.id).then((assignment)=>{
     res.render('teacher/view-submissions',{teacher:req.session.teacher,assignment})
   })
 })

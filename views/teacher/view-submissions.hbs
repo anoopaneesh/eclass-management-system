@@ -1,1 +1,39 @@
-<h1>{{assignment.title}}</h1>
+<div class="container mt-5">
+    <div  id="timetable">
+    <h1 class="mb-5 text-center">{{assignment.title}} Submissions</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Date</th>
+                <th scope="col">Submission</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each assignment.student}}
+            <tr>
+                <th scope="row">{{@index}}</th>
+                <td>{{this.name}}</td>
+                <td>{{this.date}}</td>
+                <td>
+                    <a href="/submissions/{{../assignment._id}}{{this.id}}.{{this.extname}}" download="{{this.name}}-{{../assignment.title}}">View Submission</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    </div>
+    <button class="btn btn-primary" onclick="printTimetable()">Print</button>
+</div>
+<script>
+    function printTimetable(){
+        let timetable = document.getElementById("timetable").innerHTML
+        let oldPage = document.body.innerHTML
+        document.body.innerHTML = timetable
+        document.body.style.cssText = "margin-top:100px;"
+        window.print()
+        document.body.innerHTML = oldPage
+        document.body.style.cssText = "margin-top:0px;"
+    }
+</script>

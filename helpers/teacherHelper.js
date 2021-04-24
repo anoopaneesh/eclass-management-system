@@ -125,5 +125,32 @@ module.exports={
                 reject(err)
             })
         })
+    },
+    viewSubmissions:(assignmentId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.ASSIGNMENT_COLLECTION).aggregate([
+                {$match:{_id:objectId(assignmentId)}},
+                {$unwind:'$submission'},
+                {
+                    $lookup:{
+                        from:collection.STUDENT_COLLECTION,
+                        localField:'submission.student',
+                        foreignField:'_id',
+                        as:'student'
+                    }
+                },
+                {$unwind:'$student'},
+                {
+                    $group:{
+                        _id:'$_id',
+                        title:{$first:'$title'},
+                        student:{$push:{id:'$student._id',name:'$student.name',extname:'$submission.extname',date:'$submission.date'}}
+                    }
+                }
+            ]).toArray().then((response)=>{
+                console.log(response[0])
+                resolve(response[0])
+            })
+        })
     }
 }

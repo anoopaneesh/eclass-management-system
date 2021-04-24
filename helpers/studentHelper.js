@@ -86,8 +86,10 @@ module.exports={
             }
         })
     },
-    submitAssignment:(assignmentId,data)=>{
+    submitAssignment:(assignmentId,data,studentId)=>{
         return new Promise((resolve,reject)=>{
+            data.student = objectId(studentId)
+            data.date=new Date().toDateString()
             db.get().collection(collection.ASSIGNMENT_COLLECTION).updateOne({_id:objectId(assignmentId)},{
                 $push:{
                     'submission':data
