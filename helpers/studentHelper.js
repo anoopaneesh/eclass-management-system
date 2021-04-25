@@ -107,10 +107,9 @@ module.exports={
             console.log(assignmentId,studentId)
             db.get().collection(collection.ASSIGNMENT_COLLECTION).update({_id:objectId(assignmentId)},{
                 $pull:{
-                    'submission':{'student':studentId}
+                    'submission':{'student':objectId(studentId)}
                 }
             }).then((response)=>{
-                console.log(response)
                 resolve({status:true})
             }).catch(err=>{
                 reject(err)

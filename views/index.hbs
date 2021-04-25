@@ -1,2 +1,71 @@
-<h1>{{title}}</h1>
-<p>Welcome for Admin</p>
+<div class="bg">
+    <div class="bg-layer">
+        <div class="login-options">
+            <h3 class="text-center text-white mt-5 mb-5">Login/Register</h3>
+            <div class="login-option">
+                <div class="login-content">
+                    <img class="img-small" src="https://freepikpsd.com/wp-content/uploads/2019/11/student-icon-transparent-png-14-Images.png" alt="">
+                    <a href="/student/login"><h4>Login as student</h4></a>
+                </div>
+            </div>
+            <div class="login-option">
+                <div class="login-content">
+                    <img class="img-small" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYGgmWyfJ-rmd5XuIaJczb5pGFXtfR4_QqE1gbU6rBSkuhQd3xhaewsdWUE0wc2VmInvA&usqp=CAU" alt="">
+                    <a href="/teacher/login"><h4>Login as teacher</h4></a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    
+   
+    .login-options{
+        display: flex;
+        flex-direction:column ;
+        align-items: center;
+        border-radius: 20px;
+        border:5px solid #fff;
+        width: 500px;
+        height: 600px;
+        background-color: black;
+    }
+    .login-option{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 50px;
+        width: 80%;
+        height: 50px;
+        background-color: blanchedalmond;
+        transition: 0.3s ease;
+    }
+    .login-content{
+        display: flex;
+        align-items: center;
+    }
+    .login-option:hover{
+        cursor: pointer;
+        background-color: black;
+        color: blanchedalmond;
+        border-radius: 5px;
+        border: 1px solid blanchedalmond;
+    }
+    a{
+        text-decoration: none;
+        color: black;
+    }
+    a:hover{
+        text-decoration: none;
+        color:blanchedalmond
+    }
+    .img-small{
+        width: 40px;
+        height: auto;
+        margin-right:10px;  
+    }
+</style>

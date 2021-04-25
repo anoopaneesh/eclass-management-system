@@ -1,1 +1,26 @@
-<h1>Teacher Dashboard</h1>
+<div class="container mt-5">
+    <div class="user-details">
+        <img src="/teacher-img/{{teacher._id}}.jpg" alt="" />
+        <h2>{{teacher.name}}</h2>
+        <p>Email : {{teacher.email}}</p>
+        <p>Mobile : {{teacher.mobile}}</p>
+        <a  class="text-white btn btn-success" href="/teacher/edit-profile">Edit Profile</a>
+    </div>
+</div>
+
+
+
+<style>
+    .user-details{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        height: 400px;
+        justify-content: space-around;
+    }
+    .user-details img{
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+    }
+</style>
