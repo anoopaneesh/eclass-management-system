@@ -1,48 +1,56 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-3">
+<div class="container mt-5" style="width: 100%;">
+    <h1 class="text-center">Welcome admin</h1>
+    <div class="row mt-5">
+        <div class="col-md-4 mb-5" style="display: flex;justify-content:center;">
             <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="..." alt="Card image cap">
+                <img class="card-img-top" src="https://img.freepik.com/free-vector/teacher-standing-near-blackboard-holding-stick-isolated-flat-vector-illustration-cartoon-woman-character-near-chalkboard-pointing-alphabet_74855-8600.jpg?size=626&ext=jpg" alt="Card image cap" style="height:200px;">
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <h5 class="card-title">Teachers</h5>
+                    {{#if data.teachers}}
+                    <p class="card-text">{{data.teachers}} Teachers</p>
+                     <a href="/admin/view-teachers" class="btn btn-primary">Add teacher</a>
+                    {{else}}
+                    <p class="card-text">No Teachers</p>
+                    <a href="/admin/add-teacher" class="btn btn-success">Add teacher</a>
+                    {{/if}}
+                    
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4 mb-5" style="display: flex;justify-content:center;">
             <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="..." alt="Card image cap">
+                <img class="card-img-top" src="https://img.freepik.com/free-vector/group-college-university-students-hanging-out_74855-5251.jpg?size=626&ext=jpg" alt="Card image cap" style="height:200px;">
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <h5 class="card-title">Students</h5>
+                    
+                    {{#if data.students}}
+                    <p class="card-text">{{data.students}} Students</p>
+                    <a href="/admin/view-students" class="btn btn-primary">View Students</a>
+                    {{else}}
+                    <p class="card-text">No Students</p>
+                    <a href="/admin/add-student" class="btn btn-success">Add Student</a>
+                    {{/if}}
+                    
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4 mb-5" style="display: flex;justify-content:center;">
             <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="..." alt="Card image cap">
+                <img class="card-img-top" src="https://img.freepik.com/free-vector/smiling-man-talking-loudspeaker-monitor-social-media-computer-online-flat-vector-illustration-communication-digital-technology_74855-13238.jpg?size=626&ext=jpg" alt="Card image cap" style="height:200px;">
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <h5 class="card-title">Announcements</h5>
+                    {{#if data.announcements}}
+                    <p class="card-text">{{data.announcements}} Announcements</p>
+                    <a href="/admin/view-announcements" class="btn btn-primary">View Announcements</a>
+                    {{else}}
+                    <p class="card-text">No Announcements</p>
+                    <a href="/admin/add-announcement" class="btn btn-success">Add Announcement</a>
+                    {{/if}}
+                    
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="..." alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-        </div>
+        
+        
     </div>
 </div>

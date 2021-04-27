@@ -16,7 +16,11 @@ var verifyLogin = (req,res,next) =>{
   }
 }
 router.get('/', verifyLogin,function(req, res, next) {
-  res.render('admin/dashboard', { admin: req.session.admin });
+  adminHelper.getDashboard().then((response)=>{
+    console.log(response)
+    res.render('admin/dashboard', { admin: req.session.admin,data:response.data});
+  })
+  
 });
 
 router.get('/login',(req,res)=>{
