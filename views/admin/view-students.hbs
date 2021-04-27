@@ -1,58 +1,39 @@
 <div class="container mt-5">
-    <table class="table display" id="table_id">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">Email</th>
-      <th scope="col">Gaurdian Email</th>
-      <th scope="col">Gaurdian name</th>
-      <th scope="col">Mobile</th>
-      <th scope="col">Gender</th>
-      <th scope="col">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
+  <table class="table display" id="table_id">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Gaurdian Email</th>
+        <th scope="col">Gaurdian name</th>
+        <th scope="col">Mobile</th>
+        <th scope="col">Gender</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
       {{#each students}}
-    <tr>
-      <th scope="row">{{@index}}</th>
-      <td>{{this.name}}</td>
-      <td>{{this.email}}</td>
-      <td>{{this.gemail}}</td>
-      <td>{{this.gname}}</td>
-      <td>{{this.mobile}}</td>
-      <td>{{this.gender}}</td>
-      <td>
+
+      <tr>
+        <th scope="row">{{@index}}</th>
+        <td>{{this.name}}</td>
+        <td>{{this.email}}</td>
+        <td>{{this.gemail}}</td>
+        <td>{{this.gname}}</td>
+        <td>{{this.mobile}}</td>
+        <td>{{this.gender}}</td>
+        <td>
           <a class="btn btn-primary text-white" href="/admin/edit-student/{{this._id}}">Edit Details</a>
-          <a class="btn btn-danger text-white" data-toggle="modal" data-target="#exampleModal">Delete</a>
-          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Delete Student?</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  Are you sure to delete student
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <a class="btn btn-primary text-white" href="/admin/delete-student/{{this._id}}">Confirm</a>
-                </div>
-              </div>
-            </div>
-          </div>
-      </td>
-    </tr>
-    {{/each}}
-  </tbody>
-</table>
+          <a class="btn btn-danger text-white" href="/admin/delete-student/{{this._id}}" onclick="return confirm('Are you sure to delete {{this.name}}')">Delete</a>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
 </div>
 <script>
-    $(document).ready( function () {
+  $(document).ready(function () {
     $('#table_id').DataTable();
-} );
+  });
 </script>

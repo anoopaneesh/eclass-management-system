@@ -2,56 +2,39 @@
   {{#if assignments.length}}
   {{#each assignments}}
   <div class="card">
-  <div class="card-body">
-    <p class="card-text">{{this.issueDate}}</p>
-    <h5 class="card-title">{{this.title}}</h5>
-    <p class="card-text">{{this.message}}</p>
-    <p class="card-text"><b>Subject :</b>  {{this.subject}}&emsp;<b>Due date :</b> {{this.dueDate}}</p>
-    <code>Attachments</code><br>
-    {{#each this.attachments}}
-            <a href="/assignments/{{../_id}}{{this.name}}" download="{{this.name}}">{{this.name}}</a><br>
-    {{/each}}
-  </div>
-  {{#if this.submission}}
-  <div class="container mb-2">
-     <a class="btn btn-primary text-white" href="/submissions/{{this._id}}{{this.studentId}}.{{this.extname}}" download="{{this.title}}">View Submission</a>
-    <a class="btn btn-primary text-white" data-toggle="modal" data-target="#exampleModal">Delete Submission</a>
-  </div>
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Delete submission?</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Are you sure to delete submission for assignment
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <a class="btn btn-primary text-white" href="/student/delete-submission/{{this._id}}" >Confirm</a>
-      </div>
+    <div class="card-body">
+      <p class="card-text">{{this.issueDate}}</p>
+      <h5 class="card-title">{{this.title}}</h5>
+      <p class="card-text">{{this.message}}</p>
+      <p class="card-text"><b>Subject :</b> {{this.subject}}&emsp;<b>Due date :</b> {{this.dueDate}}</p>
+      <code>Attachments</code><br>
+      {{#each this.attachments}}
+      <a href="/assignments/{{../_id}}{{this.name}}" download="{{this.name}}">{{this.name}}</a><br>
+      {{/each}}
     </div>
+    {{#if this.submission}}
+    <div class="container mb-2">
+      <a class="btn btn-primary text-white" href="/submissions/{{this._id}}{{this.studentId}}.{{this.extname}}"
+        download="{{this.title}}">View Submission</a>
+      <a class="btn btn-primary text-white" href="/teacher/delete-assignment/{{this._id}}"
+        onclick="return confirm('Are you sure to delete {{this.title}}')">Delete Submission</a>
+    </div>
+    {{else}}
+    <form method="post" action="/student/submit-assignment/{{this._id}}" enctype="multipart/form-data">
+      <div class="container" style="display:flex;justify-content:space-between;align-items:center;">
+        <div class="form-group">
+          <label for="exampleFormControlFile1">Upload file</label>
+          <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">
+        </div>
+        <button class="btn btn-success" style="width:18em;" type="submit">Submit</button>
+      </div>
+    </form>
+    {{/if}}
   </div>
-</div>
+  {{/each}}
   {{else}}
-  <form method="post" action="/student/submit-assignment/{{this._id}}" enctype="multipart/form-data">
-  <div class="container" style="display:flex;justify-content:space-between;align-items:center;">
-    <div class="form-group">
-    <label for="exampleFormControlFile1">Upload file</label>
-    <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">
-    </div>
-    <button class="btn btn-success" style="width:18em;" type="submit">Submit</button>
-  </div>
-  </form>
+  <h1 class="text-center">No new announcements</h1>
   {{/if}}
-</div>
-{{/each}}
-{{else}}
-<h1 class="text-center">No new announcements</h1>
-{{/if}}
 
-    
+
 </div>
