@@ -5,13 +5,16 @@
 }
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
 a {
   color: #00B7FF;
 }
 .bg{
-  width:100%;
+  width:100vw;
   height:100vh;
   background-image: url('/images/bg.jpg');
   background-size: cover;
@@ -23,4 +26,7 @@ a {
   display: grid;
   place-items: center;
   background-color: hsla(0, 0%, 0%, 0.5);
+}
+footer{
+  background-color: #343A40;
 }
