@@ -28,7 +28,7 @@ Website live at : [https://eclass-management-system.herokuapp.com/](https://ecla
 6. delete submission
 
 ## How to install
-1. `` clone the github repo ``
+1. `` git clone https://github.com/anoopaneesh/eclass-management-system.git ``
 2. `` npm install ``
 3. `` npm start ``
 4. `` go to localhost:3000 from browser ``
