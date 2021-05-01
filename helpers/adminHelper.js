@@ -55,7 +55,7 @@ module.exports = {
     },
     addTimetable: (data) => {
         return new Promise(async (resolve, reject) => {
-            let timetable = await db.get().collection(collection.TIMETABLE_COLLECTION).find({ day: data.day })
+            let timetable = await db.get().collection(collection.TIMETABLE_COLLECTION).findOne({ day: data.day })
             if (timetable) {
                 db.get().collection(collection.TIMETABLE_COLLECTION).updateOne({ day: data.day }, {
                     $set: data

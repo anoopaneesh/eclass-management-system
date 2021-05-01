@@ -92,7 +92,6 @@ router.get('/view-assignments', verifyLogin, (req, res) => {
         }
       }
     })
-    console.log(assignments)
 
     res.render('student/view-assignments', { student: req.session.student, assignments })
   })

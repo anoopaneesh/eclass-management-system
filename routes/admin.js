@@ -17,7 +17,6 @@ var verifyLogin = (req,res,next) =>{
 }
 router.get('/', verifyLogin,function(req, res, next) {
   adminHelper.getDashboard().then((response)=>{
-    console.log(response)
     res.render('admin/dashboard', { admin: req.session.admin,data:response.data});
   })
   
@@ -109,7 +108,6 @@ router.get('/add-timetable',verifyLogin,(req,res)=>{
   res.render('admin/add-timetable',{admin:req.session.admin})
 })
 router.post('/add-timetable',verifyLogin,(req,res)=>{
-  console.log(req.body)
   adminHelper.addTimetable(req.body).then((timetable)=>{
     res.redirect('/admin')
   })
