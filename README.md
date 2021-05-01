@@ -10,6 +10,7 @@ Website live at : [https://eclass-management-system.herokuapp.com/](https://ecla
 1. add and edit teachers and students
 2. add and edit announcements with attachments
 3. add and edit timetable
+4. send mail to students and teachers with default login credentials
 
 ### teacher
 1. change default password
